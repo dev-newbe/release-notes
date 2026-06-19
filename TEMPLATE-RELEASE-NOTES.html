@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newbe — Release Notes · [MÊS/ANO]</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ══════════════════════════════════════
+   DESIGN TOKENS (Herdado do DS/final.html)
+══════════════════════════════════════ */
+:root {
+  --font-title:'Quicksand',sans-serif;
+  --font-body:'Montserrat',sans-serif;
+  --fw-light:300;--fw-regular:400;--fw-medium:500;--fw-semibold:600;--fw-bold:700;
+
+  --neutro-100:#FFFFFF;--neutro-200:#F0F0F0;--neutro-300:#D9D9D9;
+  --neutro-400:#BFBFBF;--neutro-500:#8C8C8C;--neutro-600:#595959;
+  --neutro-700:#404040;--neutro-800:#1A1A1A;
+
+  --primary-100:#FFE4EE;--primary-200:#FFB3CF;--primary-300:#FF80AF;--primary-400:#FF4D90;
+  --primary-500:#E91E63;--primary-600:#C2185B;--primary-700:#880E4F;--primary-800:#560027;
+
+  --secondary-100:#FFF0E6;--secondary-200:#FFCBA3;--secondary-300:#FFA066;--secondary-400:#FF7733;
+  --secondary-500:#F04E00;--secondary-600:#BF3D00;
+
+  --info-100:#E3F2FD;--info-200:#BBDEFB;--info-400:#2196F3;--info-500:#1565C0;
+
+  --success-100:#E8F5E9;--success-200:#C8E6C9;--success-300:#81C784;--success-400:#4CAF50;
+  --success-600:#2E7D32;--success-700:#1B5E20;
+
+  --warning-100:#FFFDE7;--warning-600:#F9A825;--warning-700:#9E6600;
+
+  --error-100:#FFEBEE;--error-200:#FFCDD2;--error-400:#EF5350;
+  --error-500:#F44336;--error-600:#C62828;
+
+  --alt1-100:#E0F7F4;--alt1-400:#00BFA5;--alt1-500:#00897B;
+
+  --color-primary:var(--primary-500);
+  --color-primary-light:var(--primary-100);
+  --color-bg:#F5F5F5;
+  --color-surface:var(--neutro-100);
+  --color-border:var(--neutro-300);
+  --color-divider:var(--neutro-200);
+  --color-text-primary:var(--neutro-800);
+  --color-text-secondary:var(--neutro-600);
+  --color-text-muted:var(--neutro-500);
+  --color-text-link:var(--primary-500);
+
+  --shadow-card:0 1px 4px rgba(0,0,0,.08);
+  --shadow-panel:0 2px 8px rgba(0,0,0,.10);
+
+  --radius-sm:6px;--radius-md:8px;--radius-lg:12px;--radius-pill:999px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-body);font-size:13px;color:var(--color-text-primary);background:var(--color-bg);line-height:1.5;}
+a{color:var(--color-text-link);text-decoration:none;}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-title);}
+
+/* ══ TOPBAR ══ */
+.topbar{position:sticky;top:0;z-index:300;display:flex;align-items:center;gap:14px;height:54px;padding:0 24px;background:#fff;border-bottom:1px solid var(--color-border);box-shadow:var(--shadow-card);}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--font-title);font-weight:700;font-size:17px;}
+.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--primary-500);}
+.version-pill{font-size:10px;background:var(--primary-100);color:var(--primary-600);padding:2px 8px;border-radius:999px;font-weight:700;font-family:var(--font-body);}
+.topbar-desc{font-size:11.5px;color:var(--color-text-muted);font-family:var(--font-body);}
+.topbar-tags{margin-left:auto;display:flex;gap:6px;align-items:center;}
+.topbar-tag{font-size:10px;font-weight:600;font-family:var(--font-body);background:var(--neutro-200);color:var(--neutro-600);padding:2px 8px;border-radius:999px;}
+.topbar-tag.pink{background:var(--primary-100);color:var(--primary-600);}
+.topbar-tag.green{background:var(--success-100);color:var(--success-600);}
+.topbar-back{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--primary-500);padding:4px 10px;border-radius:var(--radius-md);transition:all .12s;margin-left:auto;}
+.topbar-back:hover{background:var(--primary-100);color:var(--primary-600);}
+.topbar-back i{font-size:10px;}
+
+/* ══ SHELL ══ */
+.ds-wrap{display:flex;min-height:calc(100vh - 54px);}
+
+/* ══ SIDEBAR ══ */
+.sidebar{width:220px;flex-shrink:0;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;background:#fff;border-right:1px solid var(--color-border);padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--neutro-300) transparent;}
+.sidebar-group{padding:10px 16px 3px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--color-text-muted);font-family:var(--font-body);}
+.sidebar a{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 18px;font-size:11.5px;font-family:var(--font-body);color:var(--color-text-secondary);border-left:2px solid transparent;transition:all .12s;text-decoration:none;}
+.sidebar a i{width:12px;text-align:center;font-size:10px;color:var(--color-text-muted);}
+.sidebar a:hover,.sidebar a.active{color:var(--primary-500);background:var(--primary-100);border-left-color:var(--primary-500);}
+.sidebar a:hover i,.sidebar a.active i{color:var(--primary-400);}
+.sidebar-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:16px;padding:0 5px;border-radius:999px;font-size:9px;font-weight:700;background:var(--neutro-200);color:var(--neutro-600);margin-left:auto;}
+.sidebar-count.pink{background:var(--primary-100);color:var(--primary-600);}
+.sidebar-count.green{background:var(--success-100);color:var(--success-600);}
+.sidebar-count.amber{background:var(--warning-100);color:var(--warning-700);}
+
+/* ══ MAIN ══ */
+.main{flex:1;padding:40px 48px;max-width:960px;min-width:0;}
+
+/* ══ WELCOME CARD ══ */
+.welcome-card{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--color-border);padding:28px 32px;box-shadow:var(--shadow-card);margin-bottom:48px;position:relative;overflow:hidden;}
+.welcome-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary-500),var(--secondary-400));}
+.welcome-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.welcome-title{font-family:var(--font-title);font-size:22px;font-weight:700;color:var(--color-text-primary);margin-bottom:8px;}
+.welcome-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.75;max-width:700px;}
+
+/* ══ SEÇÕES ══ */
+.section{margin-bottom:56px;scroll-margin-top:68px;}
+.section-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--primary-400);font-family:var(--font-body);margin-bottom:4px;}
+.section-title{font-family:var(--font-title);font-size:20px;font-weight:700;color:var(--color-text-primary);margin-bottom:4px;}
+.section-rule{height:2.5px;background:linear-gradient(90deg,var(--primary-500),transparent);width:56px;border-radius:2px;margin-bottom:20px;}
+.section-rule.green{background:linear-gradient(90deg,var(--success-400),transparent);}
+.section-rule.amber{background:linear-gradient(90deg,var(--warning-600),transparent);}
+
+/* ══ FEATURE ITEMS ══ */
+.feature-item{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--color-border);padding:20px 24px;box-shadow:var(--shadow-card);margin-bottom:12px;}
+.feature-item:last-child{margin-bottom:0;}
+.feature-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;}
+.feature-title{font-family:var(--font-title);font-size:14.5px;font-weight:700;color:var(--color-text-primary);line-height:1.35;}
+.feature-tags{display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;}
+.feature-desc{font-size:12.5px;color:var(--color-text-secondary);line-height:1.7;}
+.feature-audience{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--color-divider);}
+.audience-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-muted);font-family:var(--font-body);}
+.audience-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;font-family:var(--font-body);padding:3px 10px;border-radius:var(--radius-pill);background:var(--info-100);color:var(--info-500);}
+
+/* ══ BADGES / TAGS ══ */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:var(--radius-pill);font-size:10px;font-weight:700;font-family:var(--font-body);white-space:nowrap;}
+.tag-new{background:var(--primary-100);color:var(--primary-600);}
+.tag-improvement{background:var(--alt1-100);color:var(--alt1-500);}
+.tag-fix{background:var(--warning-100);color:var(--warning-700);}
+
+/* ══ SUMMARY BAR ══ */
+.summary-bar{display:flex;gap:12px;margin-bottom:40px;flex-wrap:wrap;}
+.sum-item{background:#fff;border-radius:var(--radius-lg);border:1px solid var(--color-border);padding:14px 20px;box-shadow:var(--shadow-card);display:flex;align-items:center;gap:12px;flex:1;min-width:130px;}
+.sum-icon{width:38px;height:38px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sum-icon.pink{background:var(--primary-100);color:var(--primary-500);}
+.sum-icon.green{background:var(--success-100);color:var(--success-600);}
+.sum-icon.amber{background:var(--warning-100);color:var(--warning-700);}
+.sum-icon.total{background:var(--neutro-200);color:var(--neutro-700);}
+.sum-value{font-family:var(--font-title);font-size:22px;font-weight:700;line-height:1;}
+.sum-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-top:2px;font-family:var(--font-body);}
+
+/* ══ DIVIDER ══ */
+.divider{height:1px;background:var(--color-divider);margin:32px 0;}
+
+/* ══ JAVASCRIPT PARA SIDEBAR ATIVA ══ */
+</style>
+</head>
+<body>
+
+<!-- ══ TOP BAR ══ -->
+<header class="topbar">
+  <div class="brand"><div class="brand-dot"></div>newbe</div>
+  <span class="version-pill">[MÊS/ANO]</span>
+  <span class="topbar-desc">Release Notes — Portal RH & Plataforma</span>
+  <div class="topbar-tags">
+    <span class="topbar-tag pink"><i class="fa-solid fa-star" style="font-size:8px;margin-right:3px;"></i>[X] Novidades</span>
+    <span class="topbar-tag green"><i class="fa-solid fa-arrow-up" style="font-size:8px;margin-right:3px;"></i>[X] Melhorias</span>
+    <span class="topbar-tag"><i class="fa-solid fa-wrench" style="font-size:8px;margin-right:3px;"></i>[X] Correções</span>
+    <a href="../index.html" class="topbar-back"><i class="fa-solid fa-arrow-left"></i>Release Notes</a>
+  </div>
+</header>
+
+<div class="ds-wrap">
+
+<!-- ══ SIDEBAR ══ -->
+<nav class="sidebar">
+  <div class="sidebar-group">Nesta Versão</div>
+  <a href="#novidades"><i class="fa-solid fa-star"></i>Novidades<span class="sidebar-count pink">[X]</span></a>
+  <a href="#melhorias"><i class="fa-solid fa-arrow-trend-up"></i>Melhorias<span class="sidebar-count green">[X]</span></a>
+  <a href="#correcoes"><i class="fa-solid fa-wrench"></i>Correções<span class="sidebar-count amber">[X]</span></a>
+  <!-- ADICIONE GRUPOS DE APRESENTAÇÃO SE NECESSÁRIO -->
+  <div class="sidebar-group">Apresentações</div>
+  <a href="#area1"><i class="fa-solid fa-briefcase"></i>Área 1</a>
+  <a href="#area2"><i class="fa-solid fa-briefcase"></i>Área 2</a>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+  <!-- ══ WELCOME CARD ══ -->
+  <div class="welcome-card">
+    <div class="welcome-meta">
+      <span class="tag tag-new"><i class="fa-solid fa-rocket" style="font-size:9px;"></i>Novo Release</span>
+      <span style="font-size:11px;color:var(--color-text-muted);font-family:var(--font-body);">[MÊS] de [ANO]</span>
+    </div>
+    <h1 class="welcome-title">Bem-vindo ao Release de [MÊS/ANO]</h1>
+    <p class="welcome-desc">
+      [DESCRIÇÃO EXECUTIVA]
+      Este release traz <strong>[X] novas funcionalidades</strong>, <strong>[X] melhorias</strong> e <strong>[X] correções</strong>.
+      [CONTEXTO DE NEGÓCIO].
+    </p>
+  </div>
+
+  <!-- ══ RESUMO ══ -->
+  <div class="summary-bar">
+    <div class="sum-item">
+      <div class="sum-icon total"><i class="fa-solid fa-list-check"></i></div>
+      <div><div class="sum-value">[TOTAL]</div><div class="sum-label">Total de Itens</div></div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-icon pink"><i class="fa-solid fa-star"></i></div>
+      <div><div class="sum-value" style="color:var(--primary-500);">[X]</div><div class="sum-label">Novidades</div></div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-icon green"><i class="fa-solid fa-arrow-trend-up"></i></div>
+      <div><div class="sum-value" style="color:var(--success-600);">[X]</div><div class="sum-label">Melhorias</div></div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-icon amber"><i class="fa-solid fa-wrench"></i></div>
+      <div><div class="sum-value" style="color:var(--warning-700);">[X]</div><div class="sum-label">Correções</div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       NOVIDADES
+  ════════════════════════════════════ -->
+  <section class="section" id="novidades">
+    <div class="section-eyebrow">O que há de novo</div>
+    <h2 class="section-title">Novidades</h2>
+    <div class="section-rule"></div>
+
+    <!-- ITEM 1 -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">[NOME DA FUNCIONALIDADE]</div>
+        <div class="feature-tags">
+          <span class="tag tag-new"><i class="fa-solid fa-star"></i>Novo</span>
+        </div>
+      </div>
+      <p class="feature-desc">
+        [DESCRIÇÃO CLARA DO QUE FOI ENTREGUE E QUAL O IMPACTO PARA O NEGÓCIO]
+      </p>
+      <div class="feature-audience">
+        <span class="audience-label">Apresentar para</span>
+        <span class="audience-pill"><i class="fa-solid fa-users"></i>Área 1</span>
+        <span class="audience-pill"><i class="fa-solid fa-users"></i>Área 2</span>
+      </div>
+    </div>
+
+    <!-- COPIE E REPITA PARA MAIS ITENS -->
+
+  </section>
+
+  <!-- ════════════════════════════════════
+       MELHORIAS
+  ════════════════════════════════════ -->
+  <section class="section" id="melhorias">
+    <div class="section-eyebrow">Otimizações</div>
+    <h2 class="section-title">Melhorias</h2>
+    <div class="section-rule green"></div>
+
+    <!-- ITEM 1 -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">[NOME DA MELHORIA]</div>
+        <div class="feature-tags">
+          <span class="tag tag-improvement"><i class="fa-solid fa-arrow-up"></i>Melhoria</span>
+        </div>
+      </div>
+      <p class="feature-desc">
+        [DESCRIÇÃO]
+      </p>
+    </div>
+
+    <!-- COPIE E REPITA PARA MAIS ITENS -->
+
+  </section>
+
+  <!-- ════════════════════════════════════
+       CORREÇÕES
+  ════════════════════════════════════ -->
+  <section class="section" id="correcoes">
+    <div class="section-eyebrow">Estabilidade</div>
+    <h2 class="section-title">Correções</h2>
+    <div class="section-rule amber"></div>
+
+    <!-- ITEM 1 -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">[NOME DA CORREÇÃO]</div>
+        <div class="feature-tags">
+          <span class="tag tag-fix"><i class="fa-solid fa-wrench"></i>Correção</span>
+        </div>
+      </div>
+      <p class="feature-desc">
+        [DESCRIÇÃO DO PROBLEMA CORRIGIDO]
+      </p>
+    </div>
+
+    <!-- COPIE E REPITA PARA MAIS ITENS -->
+
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="divider"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:32px;">
+    <div style="font-family:var(--font-title);font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--primary-500);"></div>
+      newbe
+    </div>
+    <p style="font-size:11px;color:var(--color-text-muted);font-family:var(--font-body);">
+      Release Notes · [MÊS/ANO] · Plataforma Newbe Benefícios
+    </p>
+  </div>
+
+</main>
+</div>
+
+<script>
+  // SIDEBAR ACTIVE STATE
+  const links = document.querySelectorAll('.sidebar a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const id = e.target.getAttribute('id');
+      const link = document.querySelector(`.sidebar a[href="#${id}"]`);
+      if (link) link.classList.toggle('active', e.isIntersecting);
+    });
+  }, { rootMargin: '-54px 0px -60% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
