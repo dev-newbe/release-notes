@@ -77,7 +77,8 @@ h1,h2,h3,h4,h5,h6{font-family:var(--font-title);}
 .ds-wrap{display:flex;min-height:calc(100vh - 54px);}
 
 /* ══ SIDEBAR ══ */
-.sidebar{width:220px;flex-shrink:0;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;background:#fff;border-right:1px solid var(--color-border);padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--neutro-300) transparent;}
+.sidebar{width:220px;flex-shrink:0;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;background:#fff;border-right:1px solid var(--color-border);padding:12px 0;scrollbar-width:thin;scrollbar-color:var(--neutro-300) transparent;transition:transform .2s ease, opacity .2s ease;}
+.sidebar.open{transform:translateX(0);opacity:1;}
 .sidebar-group{padding:10px 16px 3px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--color-text-muted);font-family:var(--font-body);}
 .sidebar a{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 18px;font-size:11.5px;font-family:var(--font-body);color:var(--color-text-secondary);border-left:2px solid transparent;transition:all .12s;text-decoration:none;}
 .sidebar a i{width:12px;text-align:center;font-size:10px;color:var(--color-text-muted);}
@@ -87,6 +88,40 @@ h1,h2,h3,h4,h5,h6{font-family:var(--font-title);}
 .sidebar-count.pink{background:var(--primary-100);color:var(--primary-600);}
 .sidebar-count.green{background:var(--success-100);color:var(--success-600);}
 .sidebar-count.amber{background:var(--warning-100);color:var(--warning-700);}
+
+@media (max-width: 900px) {
+  .topbar{padding:0 16px;}
+  .topbar-desc{display:none;}
+  .topbar-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .topbar-back{margin-left:0;}
+
+  .ds-wrap{display:block;}
+  .sidebar{display:none;}
+  .main{padding:24px 16px;}
+  .welcome-card{padding:22px 20px;}
+  .summary-bar{margin-bottom:28px;}
+  .feature-item{padding:18px 20px;}
+  .section{margin-bottom:40px;}
+  .section-title{font-size:18px;}
+  .feature-title{font-size:14px;}
+  .sidebar a{font-size:13px;}
+}
+
+@media (max-width: 600px) {
+  .topbar{gap:10px;height:auto;padding:12px 14px;align-items:flex-start;}
+  .brand{font-size:16px;}
+  .version-pill{font-size:9px;padding:2px 7px;}
+  .topbar-back{font-size:11px;padding:4px 8px;}
+  .main{padding:20px 14px;}
+  .welcome-card{padding:20px 18px;}
+  .welcome-title{font-size:20px;}
+  .page-desc{font-size:13px;}
+  .summary-bar{gap:10px;}
+  .sum-item{padding:12px 16px;}
+  .sum-value{font-size:20px;}
+  .feature-item{padding:16px 18px;}
+  .feature-desc{font-size:12.5px;}
+}
 
 /* ══ MAIN ══ */
 .main{flex:1;padding:40px 48px;max-width:960px;min-width:0;}
@@ -162,7 +197,6 @@ h1,h2,h3,h4,h5,h6{font-family:var(--font-title);}
     <a href="../index.html" class="topbar-back"><i class="fa-solid fa-arrow-left"></i>Release Notes</a>
   </div>
 </header>
-
 <div class="ds-wrap">
 
 <!-- ══ SIDEBAR ══ -->
@@ -515,6 +549,8 @@ h1,h2,h3,h4,h5,h6{font-family:var(--font-title);}
     });
   }, { rootMargin: '-54px 0px -60% 0px' });
   document.querySelectorAll('section[id], div[id]').forEach(s => observer.observe(s));
+
+  // A sidebar não é usada em mobile, portanto não há script de toggle aqui.
 </script>
 
 </body>
